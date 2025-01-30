@@ -1,13 +1,19 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
+// Albums
 const albums = require('./api/albums');
 const AlbumsService = require('./services/postgres/AlbumsService');
 const AlbumsValidator = require('./validator/albums');
+// Songs
 const songs = require('./api/songs');
 const SongsService = require('./services/postgres/SongsService');
 const SongsValidator = require('./validator/songs');
+// Users
+const users = require('./api/users');
+const UsersService = require('./services/postgres/UsersService');
+const UsersValidator = require('./validator/users');
+
 const ClientError = require('./exceptions/ClientError');
 
 const init = async () => {
@@ -34,6 +40,13 @@ const init = async () => {
       options: {
         service: new SongsService(),
         validator: SongsValidator,
+      },
+    },
+    {
+      plugin: users,
+      options: {
+        service: new UsersService(),
+        validator: UsersValidator,
       },
     },
   ]);
