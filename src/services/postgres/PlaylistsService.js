@@ -34,7 +34,6 @@ class PlaylistsService {
       if (error instanceof NotFoundError) {
         throw error;
       }
-
       try {
         await this._collaborationsService.verifyCollaborator(playlistId, userId);
       } catch {
@@ -62,12 +61,12 @@ class PlaylistsService {
 
   async getPlaylists(owner) {
     const query = {
-      text: `SELECT playlists.id, playlists.name, users.username AS username 
-      FROM playlists
-      LEFT JOIN collaborations ON collaborations.playlist_id = playlists.id 
-      LEFT JOIN users ON users.id = playlists.owner 
-      WHERE playlists.owner = $1 OR collaborations.user_id = $1
-      GROUP BY (playlists.id, users.username)`,
+      text: `SELECT P.id, P.name, U.username AS username
+      FROM playlists P
+      LEFT JOIN collaborations C ON C.playlist_id = P.id 
+      LEFT JOIN users U ON U.id = P.owner 
+      WHERE P.owner = $1 OR C.user_id = $1
+      GROUP BY (P.id, U.username)`,
       values: [owner],
     };
 

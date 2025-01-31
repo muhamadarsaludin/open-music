@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
 const Jwt = require('@hapi/jwt');
+const ClientError = require('./exceptions/ClientError');
 // Albums
 const albums = require('./api/albums');
 const AlbumsService = require('./services/postgres/AlbumsService');
@@ -29,8 +30,6 @@ const PlaylistSongActivitiesService = require('./services/postgres/PlaylistSongA
 const collaborations = require('./api/collaborations');
 const CollaborationsValidator = require('./validator/collaborations');
 const CollaborationsService = require('./services/postgres/CollaborationsService');
-
-const ClientError = require('./exceptions/ClientError');
 
 const init = async () => {
   const albumsService = new AlbumsService();
