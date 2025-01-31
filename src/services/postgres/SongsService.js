@@ -44,7 +44,7 @@ class SongsService {
     if (!rowCount) {
       throw new NotFoundError('Song tidak ditemukan!');
     }
-    return rows;
+    return rows[0];
   }
 
   async editSongById(id, {
