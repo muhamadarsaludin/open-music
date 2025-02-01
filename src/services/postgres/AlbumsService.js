@@ -1,5 +1,6 @@
 const { nanoid } = require('nanoid');
 const { Pool } = require('pg');
+const { mapAlbumsToModel } = require('../../utils/albums');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 
@@ -39,7 +40,7 @@ class AlbumsService {
       throw new NotFoundError('Album tidak ditemukan!');
     }
     return {
-      ...queryAlbumResult.rows[0],
+      ...queryAlbumResult.rows.map(mapAlbumsToModel)[0],
       songs: querySongsResult.rows,
     };
   }
