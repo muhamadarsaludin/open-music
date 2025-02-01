@@ -36,13 +36,15 @@ const CollaborationsService = require('./services/postgres/CollaborationsService
 const _exports = require('./api/exports');
 const ProducerService = require('./services/rabbitmq/ProducerService');
 const ExportsValidator = require('./validator/exports');
-
 // Uploads
 const StorageService = require('./services/storage/StorageService');
 const UploadsValidator = require('./validator/uploads');
+// Cache
+const CacheService = require('./services/redis/CacheService');
 
 const init = async () => {
-  const albumsService = new AlbumsService();
+  const cacheService = new CacheService();
+  const albumsService = new AlbumsService(cacheService);
   const songsService = new SongsService();
   const usersService = new UsersService();
   const authenticationsService = new AuthenticationsService();

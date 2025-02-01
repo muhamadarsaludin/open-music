@@ -32,6 +32,27 @@ const routes = (handler) => [
       },
     },
   },
+  {
+    method: 'GET',
+    path: '/albums/{id}/likes',
+    handler: handler.getUserAlbumLikesByIdHandler,
+  },
+  {
+    method: 'POST',
+    path: '/albums/{id}/likes',
+    handler: handler.postUserAlbumLikesHandler,
+    options: {
+      auth: 'openmusic_jwt',
+    },
+  },
+  {
+    method: 'DELETE',
+    path: '/albums/{id}/likes',
+    handler: handler.deleteUserAlbumLikesHandler,
+    options: {
+      auth: 'openmusic_jwt',
+    },
+  },
 ];
 
 module.exports = routes;
